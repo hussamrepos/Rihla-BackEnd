@@ -15,7 +15,9 @@ $database
 );
 
 if (!$conn){
-    die("Datbase conncetion failed ");
+    die("Datbase conncetion failed ".mysqli_connect_error());
 }
+
+mysqli_set_charset($conn,"utf8");
 
 ?>
