@@ -8,7 +8,7 @@ $result = mysqli_query($conn, $sql);
 
 $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-SendRespose(
+SendResponse(
     true,
     "users retrived success",
     $users
