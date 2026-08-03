@@ -14,6 +14,7 @@ $database
 
 );
 
+
 if (!$conn){
     die("Datbase conncetion failed ".mysqli_connect_error());
 }

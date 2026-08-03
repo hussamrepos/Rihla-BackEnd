@@ -2,6 +2,9 @@
 include "../config/database.php";
 include "../helpers/response.php";
 
+
+
+
 $name = $_POST["name"];
 $email = $_POST["email"];
 $password = $_POST["password"];
