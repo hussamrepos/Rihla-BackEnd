@@ -13,6 +13,6 @@ mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $transactions = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-SendResponse(true, "Transactions retrieved successfully", ["transactions" => $transactions]);
+SendResponse(true, "Transactions retrieved successfully", $transactions);
 
 ?>
