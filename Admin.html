@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Rihla Admin</title>
+
+</head>
+
+
+<body>
+
+
+<h2>Send Metro Notification</h2>
+
+
+<form action="api/add_notifications.php" method="POST">
+
+
+<label>
+Title
+</label>
+
+<br>
+
+<input 
+type="text" 
+name="title"
+required
+>
+
+
+<br><br>
+
+
+<label>
+Message
+</label>
+
+<br>
+
+<textarea 
+name="message"
+required
+></textarea>
+
+
+<br><br>
+
+
+<button type="submit">
+Send Notification
+</button>
+
+
+</form>
+
+
+</body>
+
+</html>
