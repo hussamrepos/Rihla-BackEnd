@@ -1,62 +1,47 @@
 <!DOCTYPE html>
-
 <html>
-
 <head>
-
-<title>Rihla Admin</title>
-
+    <title>Test Metro Status</title>
 </head>
-
-
 <body>
 
+<h2>Update Metro Status</h2>
 
-<h2>Send Metro Notification</h2>
+<select id="line">
+    <option>Blue Line</option>
+    <option>Green Line</option>
+    <option>Red Line</option>
+</select>
 
+<select id="status">
+    <option>normal</option>
+    <option>busy</option>
+    <option>maintenance</option>
+</select>
 
-<form action="api/add_notifications.php" method="POST">
+<button onclick="updateStatus()">Update</button>
 
+<p id="result"></p>
 
-<label>
-Title
-</label>
+<script>
+function updateStatus() {
 
-<br>
+    const formData = new FormData();
 
-<input 
-type="text" 
-name="title"
-required
->
+    formData.append("line_name", document.getElementById("line").value);
+    formData.append("status", document.getElementById("status").value);
 
+    fetch("api/update_metroStatus.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("result").innerHTML = data.message;
+    });
 
-<br><br>
-
-
-<label>
-Message
-</label>
-
-<br>
-
-<textarea 
-name="message"
-required
-></textarea>
-
-
-<br><br>
-
-
-<button type="submit">
-Send Notification
-</button>
-
-
-</form>
-
+}
+</script>
 
 </body>
-
 </html>
