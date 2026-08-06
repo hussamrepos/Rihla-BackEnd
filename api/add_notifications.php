@@ -1,33 +1,51 @@
 <?php
 
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json");
+
 include "../config/database.php";
+include "../helpers/response.php";
 
+$title = $_POST["title"] ?? "";
+$message = $_POST["message"] ?? "";
+$user_id = $_POST["user_id"] ?? null;
 
-$title = $_POST['title'];
-$message = $_POST['message'];
+if ($title == "" || $message == "") {
+    SendResponse(false, "Title and message are required", null);
+    exit;
+}
 
+if ($user_id != null && $user_id != "") {
+    $sql = "INSERT INTO notifications (title, message, user_id)
+            VALUES (?, ?, ?)";
 
-$sql = "INSERT INTO notifications(title,message)
-VALUES('$title','$message')";
+    $stmt = mysqli_prepare($conn, $sql);
 
+    mysqli_stmt_bind_param(
+        $stmt,
+        "ssi",
+        $title,
+        $message,
+        $user_id
+    );
+} else {
+    $sql = "INSERT INTO notifications (title, message, user_id)
+            VALUES (?, ?, NULL)";
 
-$result = mysqli_query($conn,$sql);
+    $stmt = mysqli_prepare($conn, $sql);
 
+    mysqli_stmt_bind_param(
+        $stmt,
+        "ss",
+        $title,
+        $message
+    );
+}
 
-if($result){
-
-    echo json_encode([
-        "success"=>true,
-        "message"=>"Notification added"
-    ]);
-
-}else{
-
-    echo json_encode([
-        "success"=>false,
-        "message"=>"Failed to add notification"
-    ]);
-
+if (mysqli_stmt_execute($stmt)) {
+    SendResponse(true, "Notification sent successfully", null);
+} else {
+    SendResponse(false, "Failed to send notification", null);
 }
 
 ?>
